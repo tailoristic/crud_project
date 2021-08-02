@@ -28,7 +28,7 @@
           <td>{{student.email}}</td>
           <td>{{student.password}}</td>
           <td>
-            <a href="#" class="btn btn-warning btn-sm">Edit</a>
+            <a href="{% url 'update_data' student.id %}" class="btn btn-warning btn-sm">Edit</a>
             <form action="{% url 'delete_data' student.id %}" method="POST" class="d-inline">
               {% csrf_token %} 
               <!-- <a href="#" class="btn btn-danger btn-sm">Delete</a> -->

@@ -3,6 +3,8 @@ from .forms import StudentRegistration
 from .models import User
 
 # ! CREATE AND READ
+
+
 def add_show(request):
     if request.method == 'POST':
         form = StudentRegistration(request.POST)
@@ -21,9 +23,27 @@ def add_show(request):
     context = {'form': form, 'students': students}
     return render(request, 'enroll/home_page.html', context)
 
+# ! UPDATE
+
+
+def update_data(request, id):
+    if request.method == 'POST':
+        user_data = User.objects.get(pk=id)
+        form = StudentRegistration(request.POST, instance=user_data)
+        if form.is_valid():
+            form.save()
+    else:
+        user_data = User.objects.get(pk=id)
+        form = StudentRegistration(instance=user_data)
+
+    context = {'form': form}
+    return render(request, 'enroll/updatestudent_page.html', context)
+
 # ! DELETE
+
+
 def delete_data(request, id):
     if request.method == 'POST':
-         user = User.objects.get(pk=id)
-         user.delete()
-         return redirect('/')
+        user = User.objects.get(pk=id)
+        user.delete()
+        return redirect('/')
